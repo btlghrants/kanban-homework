@@ -1,0 +1,19 @@
+{
+  "name": "kbh",
+  "dockerComposeFile": "../compose.yaml",
+  "service": "dev",
+  "workspaceFolder": "/code",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "kbh",
+  "updateRemoteUserUID": true,
+  "customizations": {
+    "vscode": {
+      // "extensions": [
+      //   "ms-python.python"
+      // ],
+      "settings": {
+        "remote.forwardOnOpen": false
+      }
+    }
+  }
+}

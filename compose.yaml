@@ -1,0 +1,77 @@
+# https://code.visualstudio.com/docs/devcontainers/containers#_getting-started
+# https://code.visualstudio.com/docs/devcontainers/create-dev-container#_use-docker-compose
+# https://docs.docker.com/reference/compose-file/services/
+
+services:
+  # custom container for use by vscode Dev Container extension
+  dev:
+    hostname: dev
+    build: ./compose/dev
+    restart: always
+    volumes:
+      - .:/code
+    command: '/bin/sh -c "while sleep 1000 ; do : ; done"'
+
+#   # https://hub.docker.com/_/postgres
+#   db:
+#     hostname: db
+#     image: docker.io/library/postgres:17.2-bookworm
+#     restart: always
+#     shm_size: 128mb
+#     environment:
+#       POSTGRES_DB: kanban-homework
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: password
+#     ports:
+#     - 5432:5432
+
+#   # https://github.com/pgadmin-org/pgadmin4/issues/6222#issuecomment-2368311395
+#   # https://stackoverflow.com/questions/64620446/adding-postgress-connections-to-pgadmin-in-docker-file
+#   # https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+#   dbui:
+#     hostname: dbui
+#     image: docker.io/elestio/pgadmin:REL-8_13
+#     restart: always
+#     depends_on:
+#       - db
+#     environment:
+#       PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS: "['localhost']"
+#       PGADMIN_DEFAULT_EMAIL: user@dbui.localhost
+#       PGADMIN_DEFAULT_PASSWORD: password
+#       PGADMIN_LISTEN_PORT: 8080
+#       PGADMIN_CONFIG_SERVER_MODE: "False"
+#       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+#     ports:
+#       - "8080:8080"
+#     entrypoint: /bin/sh -c "chmod 600 /pgpass ; /entrypoint.sh ;"
+#     user: root
+#     configs:
+#       - source: dbui-servers.json
+#         target: /pgadmin4/servers.json
+#       - source: dbui-pgpass
+#         target: /pgpass
+
+#   # api:
+
+# configs:
+#   # https://www.postgresql.org/docs/current/libpq-pgpass.html#LIBPQ-PGPASS
+#   dbui-pgpass:
+#     content: db:5432:*:user:password
+
+#   # https://www.pgadmin.org/docs/pgadmin4/development/import_export_servers.html
+#   dbui-servers.json:
+#     content: |
+#       {
+#         "Servers": {
+#           "1": {
+#             "Group": "Servers",
+#             "Name": "db",
+#             "Host": "db",
+#             "Port": 5432,
+#             "MaintenanceDB": "postgres",
+#             "Username": "user",
+#             "PassFile": "/pgpass",
+#             "SSLMode": "prefer"
+#           }
+#         }
+#       }
