@@ -56,5 +56,5 @@ RUN <<NUR
   sudo -u "$USER" bash -c '. ~/.nvm/nvm.sh && nvm install 22'
 NUR
 
-WORKDIR /code
-EXPOSE 5000
+WORKDIR /code/ui
+EXPOSE 3000
