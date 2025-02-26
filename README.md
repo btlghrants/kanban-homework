@@ -18,6 +18,8 @@ TODOs:
 
 - Bonus Points:
   - Create container builds for the frontend and backend
+    - https://nextjs.org/docs/pages/api-reference/config/next-config-js/output#automatically-copying-traced-files
+      (have to copy some files to make an "optimized" docker container!)
   - Create a deployment for a generic K8s cluster (Kind or Docker Desktop for example)
   
 - Publish via GitHub
