@@ -31,7 +31,7 @@ RUN <<NUR
 NUR
 
 RUN <<NUR
-  apt install --yes git
+  apt install --yes git jq
 
   # https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-debian-ubuntu-docker-container
   apt install --yes locales
