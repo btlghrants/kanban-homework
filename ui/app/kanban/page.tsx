@@ -15,15 +15,15 @@ async function MyApp() {
   return (
     <>
       <Board>
-        <Column title="Column 1" id={1}>
-          { tasks.filter(f => f.column == 1).map(task => <Card task={task} key={task.id}/>)}
-        </Column>
-        <Column title="Column 2" id={2}>
-          { tasks.filter(f => f.column == 2).map(task => <Card task={task} key={task.id} />)}
-        </Column>
-        <Column title="Column 3" id={3}>
-          { tasks.filter(f => f.column == 3).map(task => <Card task={task} key={task.id}/>)}
-        </Column>
+        {
+          ["New", "WIP", "Done"].map((col, idx) => (
+            <Column title={col} id={idx} key={col}>
+              { tasks.filter(f => f.column == idx).map(task => (
+                <Card task={task} key={task.id} />
+              ))}
+            </Column>
+          ))
+        }
       </Board>
 
       <div>
