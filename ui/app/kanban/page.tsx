@@ -13,9 +13,9 @@ async function MyApp() {
     <>
       <Board columns={["New", "WIP", "Done"]} tasks={tasks} />
 
-      <div>
+      <div className={`pt-5`}>
         <h2>Tasks</h2>
-        <pre>{JSON.stringify(tasks, null, 2)}</pre>
+        <pre className={`overflow-auto`}>{JSON.stringify(tasks, null, 2)}</pre>
       </div>
     </>
   );

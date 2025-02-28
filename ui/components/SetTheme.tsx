@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 
 function SetTheme() {
   const { setTheme } = useTheme();
-  useEffect(() => { setTheme("light"); /* light, dark, system */ }, []);
+  useEffect(() => { setTheme("light"); /* light, dark, system */ }, [ setTheme ]);
   return <></>;
 }
 
