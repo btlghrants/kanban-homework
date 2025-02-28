@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import localFont from 'next/font/local';
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-import localFont from 'next/font/local'
+import "./globals.css";
+import SetTheme from "@/components/SetTheme";
 
 const variFont = localFont({
   src: './fonts/Comfortaa-VariableFont_wght.ttf',
@@ -15,7 +17,6 @@ const monoFont = localFont({
   variable: '--font-monospace'
 })
 
-
 export const metadata: Metadata = {
   title: "📝 homework-kanban",
   description: "Hi SOSi!",
@@ -27,9 +28,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${variFont.variable} ${monoFont.variable} antialiased`}>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SetTheme />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

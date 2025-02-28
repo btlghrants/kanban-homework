@@ -1,4 +1,4 @@
-import Board from "@/app/components/Board";
+import Board from "@/components/Board";
 
 export default function Page() {
   return <MyApp/>
