@@ -17,5 +17,9 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-comfortaa), sans-serif;
+  font-family: var(--font-variable);
+
+  pre {
+    font-family: var(--font-monospace);
+  }
 }

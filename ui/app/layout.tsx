@@ -3,10 +3,16 @@ import "./globals.css";
 
 import localFont from 'next/font/local'
 
-const comfortaa = localFont({
-  src: './fonts/Comfortaa-VariableFont_wght.ttf',
+const variFont = localFont({
+  src: '../public/fonts/Comfortaa-VariableFont_wght.ttf',
   display: 'swap',
-  variable: '--font-comfortaa'
+  variable: '--font-variable'
+})
+
+const monoFont = localFont({
+  src: '../public/fonts/VictorMono-VariableFont_wght.ttf',
+  display: 'swap',
+  variable: '--font-monospace'
 })
 
 
@@ -22,9 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${comfortaa.variable} antialiased`}
-      >
+      <body className={`${variFont.variable} ${monoFont.variable} antialiased`}>
         <h1 className="text-3xl">Root</h1>
         {children}
       </body>

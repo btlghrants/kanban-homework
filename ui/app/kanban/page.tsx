@@ -1,0 +1,20 @@
+export default function Page() {
+  return <MyApp/>
+}
+
+async function MyApp() {
+  const resp = await fetch("http://localhost:3000/api/tasks");
+  const tasks = await resp.json();
+
+  return (
+    <>
+      <div>
+        <h1>Welcome to my app</h1>
+      </div>
+      <div>
+        <h2>Tasks</h2>
+        <pre className={`text-sm`}>{JSON.stringify(tasks, null, 2)}</pre>
+      </div>
+    </>
+  );
+}
