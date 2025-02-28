@@ -1,13 +1,13 @@
 import React from 'react';
+import { Task } from '@/app/api/db';
+import Card from "@/components/Card";
 
 function Column({
-  id,
   title,
-  children,
+  tasks
 }: Readonly<{
-  id: number,
   title: string,
-  children: React.ReactNode,
+  tasks: Task[]
 }>) {
   return (
     <div className={`bg-green-300 flex flex-col p-3 gap-3 rounded-lg min-w-96`}>
@@ -17,7 +17,7 @@ function Column({
         </span>
       </div>
       <div className={`flex flex-col gap-3`}>
-        {children}
+        { tasks.map(t => <Card task={t} key={t.id} /> )}
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import Board from "@/components/Board";
 import Column from "@/components/Column";
-import Card from "@/components/Card";
 
 import { Task } from "@/app/api/db";
 
@@ -15,15 +14,13 @@ async function MyApp() {
   return (
     <>
       <Board>
-        {
-          ["New", "WIP", "Done"].map((col, idx) => (
-            <Column title={col} id={idx} key={col}>
-              { tasks.filter(f => f.column == idx).map(task => (
-                <Card task={task} key={task.id} />
-              ))}
-            </Column>
-          ))
-        }
+        { ["New", "WIP", "Done"].map((col, idx) => (
+          <Column
+            title={col}
+            key={col}
+            tasks={tasks.filter(t => t.column === idx)}
+          />
+        ))}
       </Board>
 
       <div>
