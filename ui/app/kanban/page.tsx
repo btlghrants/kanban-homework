@@ -13,7 +13,7 @@ async function MyApp() {
       </div>
       <div>
         <h2>Tasks</h2>
-        <pre className={`text-sm`}>{JSON.stringify(tasks, null, 2)}</pre>
+        <pre>{JSON.stringify(tasks, null, 2)}</pre>
       </div>
     </>
   );
