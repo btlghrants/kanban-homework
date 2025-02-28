@@ -28,3 +28,17 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
+
+@layer utilities {
+  /* .kb-board {
+    @apply bg-red-400
+  }
+
+  .kb-column {
+    @apply bg-green-400
+  }
+
+  .kb-card {
+    @apply bg-blue-400
+  } */
+}

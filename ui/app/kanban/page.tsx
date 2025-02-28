@@ -1,3 +1,5 @@
+import Board from "@/app/components/Board";
+
 export default function Page() {
   return <MyApp/>
 }
@@ -8,13 +10,11 @@ async function MyApp() {
 
   return (
     <>
-      <div>
-        <h1>Welcome to my app</h1>
-      </div>
-      <div>
+      <Board />
+      {/* <div>
         <h2>Tasks</h2>
         <pre>{JSON.stringify(tasks, null, 2)}</pre>
-      </div>
+      </div> */}
     </>
   );
 }

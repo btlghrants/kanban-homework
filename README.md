@@ -13,6 +13,11 @@
 - Implement drag-and-drop functionality using react-beautiful-dnd or dnd-kit.
 
 - Form validation using zod for adding/editing tasks.
+  - Planning to use shadcn/ui as UI component library
+    - gives basic UI components (so I don't have to re-implement them) (including graphs!)
+    - supports light/dark mode theming
+    - works with Next.js & supports react-hook-form w/ Zod validation
+      https://ui.shadcn.com/docs/components/form
 
 - React Context API or Redux Toolkit (RTK)
   - expect to use one of these to propagate API-data through client-side component
