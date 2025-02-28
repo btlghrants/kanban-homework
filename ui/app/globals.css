@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply font-variable
+  }
+
   pre {
     @apply text-sm font-monospace
   }
@@ -23,5 +27,4 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-variable);
 }
