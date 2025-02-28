@@ -1,6 +1,4 @@
 import Board from "@/components/Board";
-import Column from "@/components/Column";
-
 import { Task } from "@/app/api/db";
 
 export default function Page() {
@@ -13,15 +11,7 @@ async function MyApp() {
 
   return (
     <>
-      <Board>
-        { ["New", "WIP", "Done"].map((col, idx) => (
-          <Column
-            title={col}
-            key={col}
-            tasks={tasks.filter(t => t.column === idx)}
-          />
-        ))}
-      </Board>
+      <Board columns={["New", "WIP", "Done"]} tasks={tasks} />
 
       <div>
         <h2>Tasks</h2>
