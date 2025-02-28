@@ -8,9 +8,9 @@
   "updateRemoteUserUID": true,
   "customizations": {
     "vscode": {
-      // "extensions": [
-      //   "ms-python.python"
-      // ],
+      "extensions": [
+        "bradlc.vscode-tailwindcss"
+      ],
       "settings": {
         "remote.forwardOnOpen": false
       }
