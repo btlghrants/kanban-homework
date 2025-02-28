@@ -37,7 +37,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SetTheme />
-          {children}
+          <div className={`h-screen p-5`}>
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

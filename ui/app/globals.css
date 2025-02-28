@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
   body {
-    @apply font-variable
+    @apply bg-background text-foreground font-variable;
   }
 
   pre {
@@ -66,25 +70,11 @@
   }
 }
 
+/* custom utility class example */
+/*
 @layer utilities {
-  /* .kb-board {
-    @apply bg-red-400
-  }
-
-  .kb-column {
-    @apply bg-green-400
-  }
-
   .kb-card {
     @apply bg-blue-400
-  } */
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
+*/
