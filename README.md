@@ -1,4 +1,4 @@
-TODOs:
+### Criteria ###
 
 - Create a React app with Tailwind that simulates a very basic Kanban board
   - Next.js is a recommended "React app" framework
@@ -23,7 +23,7 @@ TODOs:
   - POST /tasks – Add a task.
   - PUT /tasks/:id – Update a task.
   - DELETE /tasks/:id – Delete a task.
-  - \* I'm planning to just use Next.js's API Routes to serve these endpoints
+  - \* I'm just using Next.js's API Routes to serve these!
 
 - Bonus Points:
   - Create container builds for the frontend and backend
@@ -34,3 +34,21 @@ TODOs:
   - Create a deployment for a generic K8s cluster (Kind or Docker Desktop for example)
   
 - Publish code to GitHub
+
+&nbsp;
+
+### Domain Model ###
+
+#### v0 ####
+
+- Board &mdash; The top-level container.
+
+- Column &mdash; A sub-section of the Board representing the "stages" of a work process.
+
+- Card &mdash; Represents a single work item; moves through the "stages" of a work process.
+
+- Limit &mdash; Short for "work in progress (WIP) Limit", it represents the maximum number of Cards allowed in a given Column at any one time.
+
+#### vNext (a.k.a. out-of-scope (for now)) ####
+
+- Lane &mdash; (a.k.a. "Swim lane") A named, sub-grouping of the Cards on a Board; used to distinguish a selection of cards from the rest of the board (e.g. by team, class of service, urgency).
