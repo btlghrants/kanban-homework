@@ -10,7 +10,7 @@ function Column({
   tasks: Task[]
 }>) {
   return (
-    <div className={`bg-green-300 flex flex-col p-3 gap-3 rounded-lg min-w-96`}>
+    <div className={`bg-green-300 flex flex-col p-3 gap-3 rounded-lg min-w-96 overflow-auto`}>
       <div className={`self-center`}>
         <span>
           {title}

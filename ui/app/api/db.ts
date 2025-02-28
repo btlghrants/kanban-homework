@@ -30,6 +30,12 @@ const tasks: Task[] = [
     content: "Given I have not logged in\nAnd I have the \"anonymous\" Role\nWhen I have a donut\nThen it should taste delicious.",
     column: 2,
   },
+  {
+    id: "44444444-4444-4444-4444-444444444444",
+    owner: "Eleanor",
+    content: "Given I have logged in\nAnd I have the \"queen\" Role\nWhen I navigate to the home page\nThen I should see that I was the Queen of England from 1236 to 1272.",
+    column: 2,
+  },
 ];
 
 export default tasks;
