@@ -4,13 +4,13 @@ import "./globals.css";
 import localFont from 'next/font/local'
 
 const variFont = localFont({
-  src: '../public/fonts/Comfortaa-VariableFont_wght.ttf',
+  src: './fonts/Comfortaa-VariableFont_wght.ttf',
   display: 'swap',
   variable: '--font-variable'
 })
 
 const monoFont = localFont({
-  src: '../public/fonts/VictorMono-VariableFont_wght.ttf',
+  src: './fonts/VictorMono-VariableFont_wght.ttf',
   display: 'swap',
   variable: '--font-monospace'
 })
