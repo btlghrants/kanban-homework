@@ -6,7 +6,7 @@ function Board({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`bg-red-400 size-full flex flex-row p-5 gap-3 rounded-lg overflow-auto`}>
+    <div className={`bg-red-300 size-full flex flex-row p-5 gap-3 rounded-lg overflow-auto`}>
       {children}
     </div>
   );
