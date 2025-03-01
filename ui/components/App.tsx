@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Task } from "@/app/api/db";
-import Board, { BoardContext, BoardState, defaultBoardState } from "@/components/Board";
+import Board from "@/components/Board";
+import { BoardContext, BoardState, defaultBoardState } from "@/components/BoardContext";
 
 interface AppProps {
   tasks: Task[];

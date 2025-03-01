@@ -1,25 +1,8 @@
-import React, { createContext, Dispatch, SetStateAction, useContext } from 'react';
+import React, { useContext } from 'react';
 import { DndContext, DragEndEvent, closestCorners } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import Column from "@/components/Column";
-import { Task } from "@/app/api/db";
-
-export interface BoardState {
-  tasks: Task[];
-}
-export const defaultBoardState: BoardState = {
-  tasks: [],
-};
-
-interface SettableBoardContext {
-  boardState: BoardState;
-  setBoardState: Dispatch<SetStateAction<BoardState>>;
-}
-
-export const BoardContext = createContext<SettableBoardContext>({
-  boardState: defaultBoardState,
-  setBoardState: () => {},
-});
+import { BoardContext } from "@/components/BoardContext";
 
 interface BoardProps {
   columns: string[];
