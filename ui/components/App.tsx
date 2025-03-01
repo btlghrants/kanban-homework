@@ -15,7 +15,7 @@ export default function App({tasks}: Readonly<AppProps>) {
 
   return (
       <BoardContext.Provider value={{boardState, setBoardState}}>
-        <Board columns={["New", "WIP", "Done"]} />
+        <Board />
 
         {/* <div className={`pt-5`}>
           <h2>Tasks</h2>

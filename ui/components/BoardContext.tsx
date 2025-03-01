@@ -3,9 +3,11 @@ import { Task } from "@/app/api/db";
 
 export interface BoardState {
   tasks: Task[];
+  columns: string[];
 }
 export const defaultBoardState: BoardState = {
   tasks: [],
+  columns: [],
 };
 
 export const BoardContext = createContext<{
