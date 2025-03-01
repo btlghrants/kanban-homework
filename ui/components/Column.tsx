@@ -1,4 +1,5 @@
 import React from 'react';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Task } from '@/app/api/db';
 import Card from "@/components/Card";
 
@@ -15,7 +16,9 @@ export default function Column({title, tasks}: Readonly<ColumnProps>) {
         </span>
       </div>
       <div className={`flex flex-col gap-5`}>
-        { tasks.map(t => <Card task={t} key={t.id} /> )}
+        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
+          { tasks.map(t => <Card task={t} key={t.id} /> )}
+        </SortableContext>
       </div>
     </div>
   );
