@@ -2,7 +2,11 @@ import React from 'react';
 import { Task } from '@/app/api/db';
 import Card from "@/components/Card";
 
-function Column({title, tasks}: Readonly<{title: string, tasks: Task[]}>) {
+interface ColumnProps {
+  title: string, tasks: Task[]
+}
+
+export default function Column({title, tasks}: Readonly<ColumnProps>) {
   return (
     <div className={`bg-green-300 flex flex-col p-5 gap-3 rounded-lg min-w-96 overflow-auto`}>
       <div className={`self-center`}>
@@ -16,5 +20,3 @@ function Column({title, tasks}: Readonly<{title: string, tasks: Task[]}>) {
     </div>
   );
 }
-
-export default Column;
