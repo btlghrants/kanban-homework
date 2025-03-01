@@ -11,6 +11,8 @@
 - Create small commits as you go:
 
 - Implement drag-and-drop functionality using react-beautiful-dnd or dnd-kit.
+  - will NOT be using react-beautiful-dnd since it's GitHub page says it is deprecated / unsupported and will be archived on GH on 30 April 2025, so..
+  - this project uses dnd-kit!
 
 - Form validation using zod for adding/editing tasks.
   - Planning to use shadcn/ui as UI component library
