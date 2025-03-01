@@ -20,15 +20,16 @@
       https://ui.shadcn.com/docs/components/form
 
 - React Context API or Redux Toolkit (RTK)
-  - expect to use one of these to propagate API-data through client-side component
-    hierarchies _without_ having to push props through components that don't care
+  - Using "BoardContext" to propagate API-data (i.e. "tasks") throughout client-side
+    component hierarchies _without_ having to resort to prop drilling
 
 - Use a mock backend (use whatever is easiest) with the following endpoints to interact with cards:
   - GET /tasks – Get all tasks.
   - POST /tasks – Add a task.
   - PUT /tasks/:id – Update a task.
   - DELETE /tasks/:id – Delete a task.
-  - \* I'm just using Next.js's API Routes to serve these!
+
+  - \* I'm just using Next.js's API Routes to serve these since it's built-in / easy
 
 - Bonus Points:
   - Create container builds for the frontend and backend
