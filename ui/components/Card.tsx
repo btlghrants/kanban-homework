@@ -1,16 +1,18 @@
 import React from 'react';
-import { ArrowDownUp, Pencil } from 'lucide-react';
+import { ArrowDownUp, MoveLeft, MoveRight, Pencil } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '@/app/api/db';
 
 interface CardProps {
-  moveable: boolean;
   task: Task;
+  leftable: boolean;
+  draggable: boolean;
+  rightable: boolean;
 }
 
-export default function Card({moveable, task}: Readonly<CardProps>) {
+export default function Card({task, leftable, draggable, rightable}: Readonly<CardProps>) {
   const {id, owner, title, content} = task;
   const {
     attributes,
@@ -22,6 +24,16 @@ export default function Card({moveable, task}: Readonly<CardProps>) {
   } = useSortable({id, data: { type: "card" }});
 
   const editHandler = () => { console.log("edit card!") }
+
+  const leftHandler = () => {
+    if (!leftable) { return; }
+    console.log("move card left!");
+  };
+
+  const rightHandler = () => {
+    if (!rightable) { return; }
+    console.log("move card right!");
+  };
 
   return (
     <div
@@ -41,31 +53,52 @@ export default function Card({moveable, task}: Readonly<CardProps>) {
           <div className={`text-xl`}>{title}</div>
           <div className={`text-sm`}>{owner}</div>
         </div>
-        {
-          moveable
+
+        { leftable
+          ? <button
+              className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
+              onClick={leftHandler}
+            >
+              <MoveLeft />
+            </button>
+          : null
+        }
+
+        { draggable
             ? <button
                 className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
                 {...listeners}
               >
                 <ArrowDownUp />
               </button>
-            : <button
-                disabled={true}
-                className={`bg-gray-400 p-2 rounded-lg`}
-              >
-                <ArrowDownUp />
-              </button>
+            : null
         }
+
         <button
           className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
           onClick={editHandler}
         >
           <Pencil />
         </button>
+
+        { rightable
+          ? <button
+              className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
+              onClick={rightHandler}
+            >
+              <MoveRight />
+            </button>
+          : null
+        }
       </div>
 
       <div className={`pt-3 pb-2 text-left`}>
-        {content}
+        {content.split("\n").map((line, idx) => (
+          <p
+            className={`pl-4 pb-1 -indent-4`}
+            key={idx}>{line}
+          </p>
+        ))}
       </div>
     </div>
   );

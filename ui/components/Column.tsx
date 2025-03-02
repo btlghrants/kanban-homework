@@ -1,9 +1,7 @@
-// 'use client';
-
 import React from 'react';
-import { Plus } from 'lucide-react';
+import { Columns, Plus } from 'lucide-react';
 import { SortableContext } from '@dnd-kit/sortable';
-import { Task } from '@/app/api/db';
+import { stages, Task } from '@/app/api/db';
 import Card from "@/components/Card";
 
 interface ColumnProps {
@@ -40,9 +38,19 @@ export default function Column({
 
       <div className={`flex flex-col gap-5 overflow-auto pretty-scroll-v`}>
         <SortableContext items={tasks.map(task => task.id)}>
-          { tasks.map(task => (
-            <Card key={task.id} task={task} moveable={tasks.length > 1} />
-          ))}
+          { tasks.map(task => {
+            const draggable = tasks.length > 1;
+            const leftable = stages.findIndex(stage => stage.id === task.stageId) !== 0;
+            const rightable = stages.findIndex(stage => stage.id === task.stageId) !== stages.length - 1;
+
+            return <Card
+              key={task.id}
+              task={task}
+              leftable={leftable}
+              draggable={draggable}
+              rightable={rightable}
+            />
+          })}
         </SortableContext>
       </div>
     </div>
