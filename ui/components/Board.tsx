@@ -14,10 +14,50 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates } from '@dnd-ki
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import Column from "@/components/Column";
 import { BoardContext } from "@/components/BoardContext";
+import { Task } from "@/app/api/db";
 
 export default function Board() {
   const { boardState, setBoardState } = useContext(BoardContext);
   const { stages, tasks } = boardState;
+
+  const rehomeTask = (task: Task, direction: "left" | "right") => {
+    const fromStageIdx = stages.findIndex(stage => stage.id === task.stageId);
+    let toStageIdx = direction === "left" ? fromStageIdx - 1 : fromStageIdx + 1;
+    const minIdx = 0;
+    const maxIdx = stages.length - 1;
+    toStageIdx = toStageIdx < minIdx ? minIdx : toStageIdx;
+    toStageIdx = toStageIdx > maxIdx ? maxIdx : toStageIdx;
+
+    const fromStageId = stages[fromStageIdx].id;
+    const toStageId = stages[toStageIdx].id;
+
+    let froms = tasks.filter(t => t.stageId === fromStageId).sort((a, b) => a.order - b.order);
+    let tos = tasks.filter(t => t.stageId === toStageId).sort((a, b) => a.order - b.order);
+
+    const moveIdx = froms.findIndex(t => t.id === task.id);
+    console.log(moveIdx)
+    console.log(froms)
+    const [ mover ] = froms.splice(moveIdx, 1);
+
+    mover.stageId = toStageId;
+    tos.unshift(mover);
+
+    froms = froms.map((task, idx) => {
+      task.order = idx;
+      return task;
+    });
+    tos = tos.map((task, idx) => {
+      task.order = idx;
+      return task;
+    });
+    const reordered = [...froms, ...tos];
+
+    const nextTasks = [...tasks].map(t => {
+      const found = reordered.find(task => task.id === t.id );
+      return found ? found : t;
+    });
+    setBoardState(prev => ({ ...prev, tasks: nextTasks }));
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -79,6 +119,7 @@ export default function Board() {
               title={stage.title}
               description={stage.description}
               tasks={tasks.filter(f => f.stageId === stage.id).sort((a, b) => a.order - b.order)}
+              rehomeTask={rehomeTask}
             />
           )}
         </SortableContext>

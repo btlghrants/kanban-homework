@@ -10,9 +10,16 @@ interface CardProps {
   leftable: boolean;
   draggable: boolean;
   rightable: boolean;
+  rehomeTask: (task: Task, direction: "left" | "right") => void;
 }
 
-export default function Card({task, leftable, draggable, rightable}: Readonly<CardProps>) {
+export default function Card({
+  task,
+  leftable,
+  draggable,
+  rightable,
+  rehomeTask,
+}: Readonly<CardProps>) {
   const {id, owner, title, content} = task;
   const {
     attributes,
@@ -25,15 +32,9 @@ export default function Card({task, leftable, draggable, rightable}: Readonly<Ca
 
   const editHandler = () => { console.log("edit card!") }
 
-  const leftHandler = () => {
-    if (!leftable) { return; }
-    console.log("move card left!");
-  };
+  const leftHandler = () => { leftable && rehomeTask(task, "left"); };
 
-  const rightHandler = () => {
-    if (!rightable) { return; }
-    console.log("move card right!");
-  };
+  const rightHandler = () => { rightable && rehomeTask(task, "right"); };
 
   return (
     <div

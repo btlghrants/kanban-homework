@@ -5,17 +5,18 @@ import { stages, Task } from '@/app/api/db';
 import Card from "@/components/Card";
 
 interface ColumnProps {
-  id: string,
-  title: string,
-  description: string,
-  tasks: Task[],
+  id: string;
+  title: string;
+  description: string;
+  tasks: Task[];
+  rehomeTask: (task: Task, direction: "left" | "right") => void;
 }
 
 export default function Column({
-  id,
   title,
   description,
   tasks,
+  rehomeTask,
 }: Readonly<ColumnProps>) {
   const addHandler = () => { console.log("add new card!") };
 
@@ -49,6 +50,7 @@ export default function Column({
               leftable={leftable}
               draggable={draggable}
               rightable={rightable}
+              rehomeTask={rehomeTask}
             />
           })}
         </SortableContext>

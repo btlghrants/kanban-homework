@@ -20,14 +20,14 @@ export default function App({stages, tasks}: Readonly<AppProps>) {
       <BoardContext.Provider value={{boardState, setBoardState}}>
         <Board />
 
-        {/* <div className={`pt-5`}>
+        <div className={`pt-5`}>
           <h2>Stages</h2>
           <pre className={`overflow-auto`}>{JSON.stringify(stages, null, 2)}</pre>
         </div>
         <div className={`pt-5`}>
           <h2>Tasks</h2>
           <pre className={`overflow-auto`}>{JSON.stringify(tasks, null, 2)}</pre>
-        </div> */}
+        </div>
       </BoardContext.Provider>
   );
 }
