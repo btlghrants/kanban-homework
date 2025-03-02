@@ -35,8 +35,6 @@ export default function Board() {
     let tos = tasks.filter(t => t.stageId === toStageId).sort((a, b) => a.order - b.order);
 
     const moveIdx = froms.findIndex(t => t.id === task.id);
-    console.log(moveIdx)
-    console.log(froms)
     const [ mover ] = froms.splice(moveIdx, 1);
 
     mover.stageId = toStageId;
