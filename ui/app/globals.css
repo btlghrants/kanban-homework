@@ -70,11 +70,37 @@
   }
 }
 
-/* custom utility class example */
-/*
+
 @layer utilities {
-  .kb-card {
-    @apply bg-blue-400
+  .pretty-scroll-v::-webkit-scrollbar {
+    @apply w-6;
+  }
+
+  .pretty-scroll-v::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px #9ca3af;
+    border-left: solid 12px transparent;
+    border-top: none;
+    border-bottom: none;
+    border-right: solid 0px transparent;
+  }
+
+  .pretty-scroll-v::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 10px 10px #6b7280;
+  }
+
+  .pretty-scroll-h::-webkit-scrollbar {
+    @apply h-8;
+  }
+
+  .pretty-scroll-h::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px #9ca3af;
+    border-left: none;
+    border-top: solid 10px transparent;
+    border-bottom: solid 10px transparent;
+    border-right: none;
+  }
+
+  .pretty-scroll-h::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 10px 10px #6b7280;
   }
 }
-*/

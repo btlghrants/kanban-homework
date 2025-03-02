@@ -1,10 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import tasks from '@/app/api/db';
-
-// export async function GET(req: NextRequest) {
-//   return new NextResponse('Hello, Next.js!', { status: 200 });
-// }
+import { tasks } from '@/app/api/db';
 
 export async function GET() {
   return NextResponse.json(tasks);

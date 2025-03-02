@@ -1,13 +1,16 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
-import { Task } from "@/app/api/db";
+import { UniqueIdentifier } from '@dnd-kit/core';
+import { Stage, Task } from "@/app/api/db";
 
 export interface BoardState {
   tasks: Task[];
-  columns: string[];
+  stages: Stage[];
+  dndActiveId: UniqueIdentifier | null;
 }
 export const defaultBoardState: BoardState = {
   tasks: [],
-  columns: [],
+  stages: [],
+  dndActiveId: null,
 };
 
 export const BoardContext = createContext<{

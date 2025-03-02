@@ -1,28 +1,23 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
   closestCorners,
   DndContext,
-  /*DragEndEvent,
+  DragEndEvent,
   DragMoveEvent,
-  DragStartEvent,*/
+  DragStartEvent,
   KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { /*arrayMove,*/ sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import Column from "@/components/Column";
 import { BoardContext } from "@/components/BoardContext";
 
 export default function Board() {
   const { boardState, setBoardState } = useContext(BoardContext);
-  const { tasks } = boardState;
-  let { columns } = boardState;
-
-  columns = columns.length === 0 ? ["New", "In Progress", "Done"] : columns;
-  useEffect(() => {
-    setBoardState(prev => ({...prev, columns}))
-  }, [setBoardState, columns]);
+  const { stages, tasks } = boardState;
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -31,46 +26,63 @@ export default function Board() {
     })
   )
 
-  const handleDragStart = (/*event: DragStartEvent*/) => {
-    
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    setBoardState(prev => ({ ...prev, dndActiveId: active.id }));
   }
 
-  const handleDragMove = (/*event: DragMoveEvent*/) => {
-    
+  const handleDragMove = (event: DragMoveEvent) => {
+    const { active, over } = event;
+
+    if ( active && over && active.id !== over.id ) {
+      const activeTask = tasks.find(task => task.id === active.id)!;
+      const overTask = tasks.find(task => task.id === over.id)!;
+
+      const activeStageTasks = tasks
+        .filter(task => task.stageId === activeTask.stageId)
+        .sort((a, b) => a.order - b.order);
+
+      const activeIdx = activeStageTasks.findIndex(task => task.id === activeTask.id);
+      const overIdx = activeStageTasks.findIndex(task => task.id === overTask.id);
+
+      const shuffled = arrayMove(activeStageTasks, activeIdx, overIdx);
+      const reordered = shuffled.map((task, idx) => {
+        task.order = idx;
+        return task;
+      });
+
+      const nextTasks = [...tasks].map(task => {
+        const next = reordered.find(t => t.id === task.id);
+        return next ? next : task;
+      })
+      setBoardState(prev => ({...prev, tasks: nextTasks}) );
+    }
   }
 
-  const handleDragEnd = (/*event: DragEndEvent*/) => {
-    // const { active, over } = event;
-
-    // if (active.id === over?.id) { return ; }
-
-    // setBoardState(prev => {
-    //   const start = boardState.tasks.findIndex(t => t.id === active.id);
-    //   const final = boardState.tasks.findIndex(t => t.id === over?.id);
-    //   return {
-    //     ...prev,
-    //     tasks: arrayMove(boardState.tasks, start, final),
-    //   } 
-    // });
-  }
+  const handleDragEnd = (event: DragEndEvent) => {}
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCorners}
-      onDragStart={handleDragStart}
-      onDragMove={handleDragMove}
-      onDragEnd={handleDragEnd}
-    >
-      <div className={`bg-red-300 size-full flex flex-row p-5 gap-5 rounded-lg overflow-auto`}>
-        { columns.map((col, idx) => (
-          <Column
-            title={col}
-            key={col}
-            tasks={tasks.filter(t => t.column === idx)}
-          />
-        ))}
-      </div>
-    </DndContext>
+    <div className={`bg-red-300 size-full flex flex-row p-5 gap-5 rounded-lg overflow-auto pretty-scroll-h`}>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragStart={handleDragStart}
+        onDragMove={handleDragMove}
+        onDragEnd={handleDragEnd}
+        modifiers={[restrictToVerticalAxis]}
+      >
+        <SortableContext items={stages.map(stage => stage.id)}>
+          { stages.map((stage) =>
+            <Column
+              key={stage.id}
+              id={stage.id}
+              title={stage.title}
+              description={stage.description}
+              tasks={tasks.filter(f => f.stageId === stage.id).sort((a, b) => a.order - b.order)}
+            />
+          )}
+        </SortableContext>
+      </DndContext>
+    </div>
   );
 }
