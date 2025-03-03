@@ -36,9 +36,9 @@ export default function Card({
 
   const editHandler = () => { console.log("edit card!") }
 
-  const leftHandler = () => { leftable && rehomeTask(task, "left"); };
+  const leftHandler = () => leftable && rehomeTask(task, "left");
 
-  const rightHandler = () => { rightable && rehomeTask(task, "right"); };
+  const rightHandler = () => rightable && rehomeTask(task, "right");
 
   return (
     <div

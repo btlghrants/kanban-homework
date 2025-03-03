@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import {
   closestCorners,
   DndContext,
-  DragEndEvent,
+  // DragEndEvent,
   DragMoveEvent,
   DragStartEvent,
   KeyboardSensor,
@@ -98,7 +98,7 @@ export default function Board() {
     }
   }
 
-  const handleDragEnd = (event: DragEndEvent) => {}
+  const handleDragEnd = (/*event: DragEndEvent*/) => {}
 
   const openCardCreate = (stageId: string) => {
     setBoardState(prev => ({
