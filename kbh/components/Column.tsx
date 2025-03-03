@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Add from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import { SortableContext } from '@dnd-kit/sortable';
@@ -11,16 +11,17 @@ interface ColumnProps {
   description: string;
   tasks: Task[];
   rehomeTask: (task: Task, direction: "left" | "right") => void;
+  openCardCreate: (stageId: string) => void;
 }
 
 export default function Column({
+  id,
   title,
   description,
   tasks,
   rehomeTask,
+  openCardCreate,
 }: Readonly<ColumnProps>) {
-  const addHandler = () => { console.log("add new card!") };
-
   return (
     <div
       className={`bg-green-300 flex flex-col p-5 gap-3 rounded-lg min-w-96 w-96 shadow-sm overflow-hidden`}
@@ -32,7 +33,7 @@ export default function Column({
         </div>
         <IconButton
           className={`bg-green-400 rounded-lg shadow-sm`}
-          onClick={addHandler}
+          onClick={() => openCardCreate(id)}
         >
           <Add />
         </IconButton>

@@ -20,7 +20,7 @@
     - supports light/dark mode theming
     - works with Next.js & supports react-hook-form w/ Zod validation
       https://ui.shadcn.com/docs/components/form
-    - the Dialog component is broken, updates are source-only (ugh) & it's too new for me to properly troubleshooti it
+    - the Dialog component is broken, updates are source-only (ugh) & it's too new for me to properly troubleshoot it
   - Moving over to using MUI instead!
 
 - React Context API or Redux Toolkit (RTK)

@@ -12,13 +12,14 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import Column from "@/components/Column";
 import { BoardContext } from "@/components/BoardContext";
 import { Task } from "@/app/api/db";
+import Column from "@/components/Column";
+import CardCreate from "@/components/CardCreate";
 
 export default function Board() {
   const { boardState, setBoardState } = useContext(BoardContext);
-  const { stages, tasks } = boardState;
+  const { stages, tasks, isCardCreateOpen} = boardState;
 
   const rehomeTask = (task: Task, direction: "left" | "right") => {
     const fromStageIdx = stages.findIndex(stage => stage.id === task.stageId);
@@ -99,6 +100,18 @@ export default function Board() {
 
   const handleDragEnd = (event: DragEndEvent) => {}
 
+  const openCardCreate = (stageId: string) => {
+    setBoardState(prev => ({
+      ...prev,
+      isCardCreateOpen: true,
+      cardCreateStageId: stageId
+    }));
+  };
+
+  const closeCardCreate = () => {
+    setBoardState(prev => ({ ...prev, isCardCreateOpen: false }));
+  };
+
   return (
     <div className={`bg-red-300 h-dvh flex flex-row p-5 gap-5 overflow-auto pretty-scroll-h`}>
       <DndContext
@@ -118,10 +131,16 @@ export default function Board() {
               description={stage.description}
               tasks={tasks.filter(f => f.stageId === stage.id).sort((a, b) => a.order - b.order)}
               rehomeTask={rehomeTask}
+              openCardCreate={openCardCreate}
             />
           )}
         </SortableContext>
       </DndContext>
+
+      <CardCreate
+        open={isCardCreateOpen}
+        close={closeCardCreate}
+      />
     </div>
   );
 }

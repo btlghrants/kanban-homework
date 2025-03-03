@@ -6,11 +6,15 @@ export interface BoardState {
   tasks: Task[];
   stages: Stage[];
   dndActiveId: UniqueIdentifier | null;
+  isCardCreateOpen: boolean;
+  cardCreateStageId: string | null;
 }
 export const defaultBoardState: BoardState = {
   tasks: [],
   stages: [],
   dndActiveId: null,
+  isCardCreateOpen: false,
+  cardCreateStageId: null,
 };
 
 export const BoardContext = createContext<{
