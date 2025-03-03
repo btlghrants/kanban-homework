@@ -1,6 +1,6 @@
 ### Criteria ###
 
-- Create a React app with Tailwind that simulates a very basic Kanban board
+- ✅ Create a React app with Tailwind that simulates a very basic Kanban board
   - Next.js is a recommended "React app" framework
     https://react.dev/learn/creating-a-react-app
     - it IS React
@@ -8,13 +8,11 @@
     - it provides the wiring to rough-in a lightweight / "mock" / back-end API
       (API Routes: https://nextjs.org/docs/pages/building-your-application/routing/api-routes)
 
-- Create small commits as you go:
-
-- Implement drag-and-drop functionality using react-beautiful-dnd or dnd-kit.
+- ✅ Implement drag-and-drop functionality using react-beautiful-dnd or dnd-kit.
   - will NOT be using react-beautiful-dnd since it's GitHub page says it is deprecated / unsupported and will be archived on GH on 30 April 2025, so..
   - this project uses dnd-kit!
 
-- Form validation using zod for adding/editing tasks.
+- ✅ Form validation using zod for adding/editing tasks.
   - Planning to use shadcn/ui as UI component library
     - gives basic UI components (so I don't have to re-implement them) (including graphs!)
     - supports light/dark mode theming
@@ -24,27 +22,28 @@
   - Moving over to using MUI instead!
     - works with react-hooks-form & zod too: https://www.youtube.com/watch?v=7anLE_RoDwU
 
-- React Context API or Redux Toolkit (RTK)
+- ✅ React Context API or Redux Toolkit (RTK)
   - Using "BoardContext" to propagate API-data (i.e. "tasks") throughout client-side
     component hierarchies _without_ having to resort to prop drilling
 
-- Use a mock backend (use whatever is easiest) with the following endpoints to interact with cards:
-  - GET /tasks – Get all tasks.
-  - POST /tasks – Add a task.
-  - PUT /tasks/:id – Update a task.
-  - DELETE /tasks/:id – Delete a task.
+- ⚠️ -Use a mock backend (use whatever is easiest) with the following endpoints to interact with cards:
+  - ✅ GET /tasks – Get all tasks.
+  - [ ] POST /tasks – Add a task.
+  - [ ] PUT /tasks/:id – Update a task.
+  - [ ] DELETE /tasks/:id – Delete a task.
 
-  - \* I'm just using Next.js's API Routes to serve these since it's built-in / easy
+  - \* I'm using Next.js's API Routes to serve these since it's built-in / easy
 
-- Bonus Points:
-  - Create container builds for the frontend and backend
+- ⚠️ Bonus Points:
+  - [ ] Create container builds for the frontend and backend
     - https://nextjs.org/docs/pages/api-reference/config/next-config-js/output#automatically-copying-traced-files
       (have to copy some files to make an "optimized" docker container!)
     - these should both _technically_ be servable from the same Next.js app, just using 
       separate instantiations (i.e. containers / pods)
-  - Create a deployment for a generic K8s cluster (Kind or Docker Desktop for example)
+  - [ ] Create a deployment for a generic K8s cluster (Kind or Docker Desktop for example)
+    - planning to use K3d!
   
-- Publish code to GitHub
+- ✅ Publish code to GitHub
 
 &nbsp;
 
@@ -58,8 +57,9 @@
 
 - Card &mdash; Represents a single work item; moves through the "stages" of a work process.
 
-- Limit &mdash; Short for "work in progress (WIP) Limit", it represents the maximum number of Cards allowed in a given Column at any one time.
 
 #### vNext (a.k.a. out-of-scope (for now)) ####
+
+- Limit &mdash; Short for "work in progress (WIP) Limit", it represents the maximum number of Cards allowed in a given Column at any one time.
 
 - Lane &mdash; (a.k.a. "Swim lane") A named, sub-grouping of the Cards on a Board; used to distinguish a selection of cards from the rest of the board (e.g. by team, class of service, urgency).
