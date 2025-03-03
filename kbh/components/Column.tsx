@@ -1,5 +1,6 @@
 import React from 'react';
-import { Columns, Plus } from 'lucide-react';
+import Add from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
 import { SortableContext } from '@dnd-kit/sortable';
 import { stages, Task } from '@/app/api/db';
 import Card from "@/components/Card";
@@ -29,12 +30,12 @@ export default function Column({
           <div className={`text-xl`}>{title}</div>
           <div className={`text-sm`}>{description}</div>
         </div>
-        <button
-          className={`bg-green-400 p-2 rounded-lg shadow-sm hover:shadow`}
+        <IconButton
+          className={`bg-green-400 rounded-lg shadow-sm`}
           onClick={addHandler}
         >
-          <Plus />
-        </button>
+          <Add />
+        </IconButton>
       </div>
 
       <div className={`flex flex-col gap-5 overflow-auto pretty-scroll-v`}>

@@ -1,0 +1,62 @@
+/* https://github.com/siriwatknp/mui6-tailwind4-nextjs?tab=readme-ov-file#css-layer */
+@layer theme, base, mui, components, utilities;
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+@layer utilities {
+  .pretty-scroll-v::-webkit-scrollbar {
+    @apply w-6;
+  }
+
+  .pretty-scroll-v::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px #9ca3af;
+    border-left: solid 12px transparent;
+    border-top: none;
+    border-bottom: none;
+    border-right: solid 0px transparent;
+  }
+
+  .pretty-scroll-v::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 10px 10px #6b7280;
+  }
+
+  .pretty-scroll-h::-webkit-scrollbar {
+    @apply h-8 ml-8 pl-8;
+  }
+
+  .pretty-scroll-h::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px #9ca3af;
+    border-left: none;
+    border-top: solid 0px transparent;
+    border-bottom: solid 20px transparent;
+    border-right: none;
+  }
+
+  .pretty-scroll-h::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 10px 10px #6b7280;
+  }
+}

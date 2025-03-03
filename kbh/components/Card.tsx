@@ -1,5 +1,9 @@
 import React from 'react';
-import { ArrowDownUp, MoveLeft, MoveRight, Pencil } from 'lucide-react';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import ChevronRight from '@mui/icons-material/ChevronRight';
+import Edit from '@mui/icons-material/Edit';
+import SwapVert from '@mui/icons-material/SwapVert';
 import { clsx } from 'clsx';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -56,39 +60,40 @@ export default function Card({
         </div>
 
         { leftable
-          ? <button
-              className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
+          ? <IconButton
+              className={`bg-blue-400 rounded-lg shadow-sm`}
               onClick={leftHandler}
             >
-              <MoveLeft />
-            </button>
+              <ChevronLeft />
+            </IconButton>
           : null
         }
 
         { draggable
-            ? <button
-                className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
+            ? <IconButton
+                className={`bg-blue-400 rounded-lg shadow-sm`}
+                disableRipple
                 {...listeners}
               >
-                <ArrowDownUp />
-              </button>
+                <SwapVert />
+              </IconButton>
             : null
         }
 
-        <button
-          className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
+        <IconButton
+          className={`bg-blue-400 rounded-lg shadow-sm`}
           onClick={editHandler}
         >
-          <Pencil />
-        </button>
+          <Edit />
+        </IconButton>
 
         { rightable
-          ? <button
-              className={`bg-blue-400 p-2 rounded-lg shadow-sm hover:shadow`}
+          ? <IconButton
+              className={`bg-blue-400 rounded-lg shadow-sm`}
               onClick={rightHandler}
             >
-              <MoveRight />
-            </button>
+              <ChevronRight />
+            </IconButton>
           : null
         }
       </div>

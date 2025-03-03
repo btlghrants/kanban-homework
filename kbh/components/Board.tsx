@@ -100,7 +100,7 @@ export default function Board() {
   const handleDragEnd = (event: DragEndEvent) => {}
 
   return (
-    <div className={`bg-red-300 size-full flex flex-row p-5 gap-5 rounded-lg overflow-auto pretty-scroll-h`}>
+    <div className={`bg-red-300 h-dvh flex flex-row p-5 gap-5 overflow-auto pretty-scroll-h`}>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
