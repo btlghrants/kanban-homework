@@ -27,7 +27,7 @@ export async function PUT(
   let fromStage = db.tasks
     .filter(t => t.stageId === fromStageId)
     .sort((a, b) => a.order - b.order );
-  let fromIdx = fromStage.findIndex(t => t.id === id)!;
+  const fromIdx = fromStage.findIndex(t => t.id === id)!;
   fromStage.splice(fromIdx, 1);
   fromStage = fromStage.map((t, idx) => {
     t.order = idx;
@@ -44,7 +44,7 @@ export async function PUT(
     return t;
   });
 
-  let newTasks = db.tasks.map(t => {
+  const newTasks = db.tasks.map(t => {
     const foundFrom = fromStage.find(staged => staged.id === t.id);
     const foundTo = toStage.find(staged => staged.id === t.id);
     return (

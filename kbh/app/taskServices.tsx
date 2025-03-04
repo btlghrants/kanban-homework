@@ -5,7 +5,7 @@ import { Task } from '@/app/api/db';
 const endpoint = () => `${process.env.API_HOST}:${process.env.API_PORT}/api/tasks`;
 
 export async function create(task: Task): Promise<Task> {
-  const resp = await fetch(`${endpoint()}`, {
+  await fetch(`${endpoint()}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ export async function readAll(): Promise<Task[]> {
 }
 
 export async function update(task: Task): Promise<Task> {
-  const resp = await fetch(`${endpoint()}/${task.id}`, {
+  await fetch(`${endpoint()}/${task.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ export async function update(task: Task): Promise<Task> {
 }
 
 export async function destroy(id: Task["id"]): Promise<void> {
-  const resp = await fetch(`${endpoint()}/${id}`, {
+  await fetch(`${endpoint()}/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

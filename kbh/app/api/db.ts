@@ -4,7 +4,7 @@ export interface Stage {
   description: string;
 }
 
-let stages: Stage[] = [
+const stages: Stage[] = [
   {
     id: "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
     title: "New",
@@ -31,7 +31,7 @@ export interface Task {
   order: number;
 }
 
-let tasks: Task[] = [
+const tasks: Task[] = [
   {
     id: "00000000-0000-0000-0000-000000000000",
     title: "booms",

@@ -62,7 +62,7 @@ export default function Card({
   }
 
   const deleteConfirm = async () => {
-    let newTasks = [...boardState.tasks];
+    const newTasks = [...boardState.tasks];
     const taskIdx = newTasks.findIndex(t => t.id === task.id);
     newTasks.splice(taskIdx, 1);
 

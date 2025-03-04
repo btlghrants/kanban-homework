@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     return t;
   });
 
-  let newTasks = db.tasks.map(t => {
+  const newTasks = db.tasks.map(t => {
     const found = toStage.find(staged => staged.id === t.id);
     return found ? found : t;
   });
