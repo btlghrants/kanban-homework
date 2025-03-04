@@ -32,7 +32,7 @@ export default function Column({
           <div className={`text-sm`}>{description}</div>
         </div>
         <IconButton
-          className={`bg-green-400 rounded-lg shadow-sm`}
+          className={`bg-green-400 icon-button-micro`}
           onClick={() => openCardCreate(id)}
         >
           <Add />

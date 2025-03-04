@@ -10,6 +10,7 @@ export interface BoardState {
   cardCreateStageId: string | null;
   isCardUpdateOpen: boolean;
   cardUpdateTaskId: string | null;
+  hasCardDeleteId: string | null;
 }
 export const defaultBoardState: BoardState = {
   tasks: [],
@@ -19,6 +20,7 @@ export const defaultBoardState: BoardState = {
   cardCreateStageId: null,
   isCardUpdateOpen: false,
   cardUpdateTaskId: null,
+  hasCardDeleteId: null,
 };
 
 export const BoardContext = createContext<{

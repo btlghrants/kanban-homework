@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import SwapVert from '@mui/icons-material/SwapVert';
 import { clsx } from 'clsx';
@@ -9,6 +10,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '@/app/api/db';
 import { BoardContext } from '@/components/BoardContext';
+import Confirm from '@/components/Confirm';
 
 interface CardProps {
   task: Task;
@@ -25,9 +27,9 @@ export default function Card({
   rightable,
   rehomeTask,
 }: Readonly<CardProps>) {
-  const { setBoardState } = useContext(BoardContext);
-
-  const {id, owner, title, content} = task;
+  const { boardState, setBoardState } = useContext(BoardContext);
+  const { hasCardDeleteId } = boardState;
+  const { id, owner, title, content } = task;
   const {
     attributes,
     listeners,
@@ -49,6 +51,32 @@ export default function Card({
     }));
   }
 
+  const deleteInquire = () => {
+    setBoardState(prev => ({...prev, hasCardDeleteId: id }));
+  }
+
+  const deleteCancel = () => {
+    setBoardState(prev => ({...prev, hasCardDeleteId: null }));
+
+  }
+
+  const deleteConfirm = () => {
+    let newTasks = [...boardState.tasks];
+    const taskIdx = newTasks.findIndex(t => t.id === task.id);
+    newTasks.splice(taskIdx, 1);
+
+    let reordered = newTasks.filter(t => t.stageId === task.stageId);
+    reordered = reordered.map((task, idx) => {
+      task.order = idx;
+      return task;
+    });
+    reordered.forEach(reo => {
+      const idx = newTasks.findIndex(t => t.id === reo.id);
+      newTasks.splice(idx, 1, reo);
+    });
+    setBoardState(prev => ({...prev, tasks: newTasks, hasCardDeleteId: null }));
+  }
+
   return (
     <div
       {...attributes}
@@ -62,7 +90,7 @@ export default function Card({
         isDragging && "opacity-50"
       )}
     >
-      <div className={`flex items-center gap-x-2 text-left`}>
+      <div className={`flex items-center gap-x-1 text-left`}>
         <div className={`flex flex-col gap-y-1 flex-grow`}>
           <div className={`text-xl`}>{title}</div>
           <div className={`text-sm`}>{owner}</div>
@@ -70,7 +98,7 @@ export default function Card({
 
         { leftable
           ? <IconButton
-              className={`bg-blue-400 rounded-lg shadow-sm`}
+              className={`bg-blue-400 icon-button-micro`}
               onClick={leftHandler}
             >
               <ChevronLeft />
@@ -80,7 +108,7 @@ export default function Card({
 
         { draggable
             ? <IconButton
-                className={`bg-blue-400 rounded-lg shadow-sm`}
+                className={`bg-blue-400 icon-button-micro`}
                 disableRipple
                 {...listeners}
               >
@@ -90,7 +118,22 @@ export default function Card({
         }
 
         <IconButton
-          className={`bg-blue-400 rounded-lg shadow-sm`}
+          className={`bg-blue-400 icon-button-micro`}
+          onClick={deleteInquire}
+        >
+          <Delete />
+        </IconButton>
+        <Confirm
+          isOpen={hasCardDeleteId === id}
+          prompt={`Are you sure?`}
+          explain={[`Delete:`, `Task: "${title}"`, `Id: "${id}"`]}
+          confirm={deleteConfirm}
+          cancel={deleteCancel}
+        />
+
+
+        <IconButton
+          className={`bg-blue-400 icon-button-micro`}
           onClick={openCardUpdate}
         >
           <Edit />
@@ -98,7 +141,7 @@ export default function Card({
 
         { rightable
           ? <IconButton
-              className={`bg-blue-400 rounded-lg shadow-sm`}
+              className={`bg-blue-400 icon-button-micro`}
               onClick={rightHandler}
             >
               <ChevronRight />

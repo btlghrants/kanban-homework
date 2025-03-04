@@ -128,13 +128,13 @@ export default function CardCreate({
 
             <div className={`flex flex-row justify-between w-full pt-5`}>
               <IconButton
-                className={`bg-red-400 rounded-lg shadow-sm`}
+                className={`bg-red-400 icon-button size-10`}
                 onClick={close}
               >
                 <Close />
               </IconButton>
               <IconButton
-                className={`bg-blue-400 rounded-lg shadow-sm`}
+                className={`bg-blue-400 icon-button`}
                 type="submit"
               >
                 <Done />

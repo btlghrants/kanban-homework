@@ -28,6 +28,19 @@ body {
 }
 
 @layer utilities {
+  .icon-button {
+    @apply rounded-md shadow-sm;
+  }
+
+  .icon-button-wide {
+    @apply rounded-md shadow-sm w-7;
+
+  }
+  .icon-button-micro {
+    @apply rounded-md shadow-sm size-7;
+
+  }
+
   .pretty-scroll-v::-webkit-scrollbar {
     @apply w-6;
   }
