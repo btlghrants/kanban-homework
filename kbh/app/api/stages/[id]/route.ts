@@ -3,17 +3,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/app/api/db';
 
 export async function GET(
-  context: { params: {id: string} },
+  req: NextRequest,
+  context: { params: Promise<{ id: string}> }
 ) {
-  const stage = db.stages.find(s => s.id === context.params.id);
+  const params = await context.params;
+  const { id } = params;
+
+  const stage = db.stages.find(s => s.id === id);
   return NextResponse.json(stage);
 }
 
 export async function PUT(
   req: NextRequest,
-  context: { params: {id: string} },
+  context: { params: Promise<{id: string}> },
 ) {
-  const id = context.params.id;
+  const params = await context.params;
+  const { id } = params;
+
   const stage = await req.json();
 
   const idx = db.stages.findIndex((stage) => stage.id === id);
@@ -23,12 +29,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-  context: { params: {id: string} },
+  req: NextRequest,
+  context: { params: Promise<{id: string}> },
 ) {
-  const id = context.params.id;
+  const params = await context.params;
+  const { id } = params;
 
   const idx = db.stages.findIndex((stage) => stage.id === id);
   db.stages.splice(idx, 1);
 
-  return NextResponse.json(db.stages);
+  return NextResponse.json("");
 }

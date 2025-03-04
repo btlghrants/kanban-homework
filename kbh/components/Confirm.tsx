@@ -26,7 +26,7 @@ export default function Confirm({
       onClose={cancel}
       slotProps={{
         paper: {
-          className: `bg-gray-300 w-128`,
+          className: `bg-blue-400 w-128`,
         },
       }}
     >
@@ -46,7 +46,7 @@ export default function Confirm({
             <Close />
           </IconButton>
           <IconButton
-            className={`bg-blue-400 icon-button`}
+            className={`bg-green-400 icon-button`}
             onClick={confirm}
           >
             <Done />
