@@ -2,7 +2,7 @@ import React from 'react';
 import Add from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import { SortableContext } from '@dnd-kit/sortable';
-import { stages, Task } from '@/app/api/db';
+import { Stage, Task } from '@/app/api/db';
 import Card from "@/components/Card";
 
 interface ColumnProps {
@@ -10,6 +10,7 @@ interface ColumnProps {
   title: string;
   description: string;
   tasks: Task[];
+  stages: Stage[];
   rehomeTask: (task: Task, direction: "left" | "right") => void;
   openCardCreate: (stageId: string) => void;
 }
@@ -19,6 +20,7 @@ export default function Column({
   title,
   description,
   tasks,
+  stages,
   rehomeTask,
   openCardCreate,
 }: Readonly<ColumnProps>) {

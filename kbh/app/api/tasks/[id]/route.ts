@@ -1,25 +1,36 @@
-
 import { NextRequest, NextResponse } from 'next/server';
-import { tasks } from '@/app/api/db';
+import { db } from '@/app/api/db';
 
 export async function GET(
-  context: { params: {id: string} },
+  req: NextRequest,
+  context: { params: Promise<{ id: string}> }
 ) {
-  const task = tasks.find(t => t.id === context.params.id);
+  const params = await context.params;
+  const { id } = params;
+
+  const task = db.tasks.find(t => t.id === id);
+  if (!task) { throw `Can't find task: ${id}`}
+
   return NextResponse.json(task);
 }
 
 export async function PUT(
   req: NextRequest,
-  context: { params: {id: string} },
+  context: { params: Promise<{id: string}> },
 ) {
-  const id = context.params.id;
+  const params = await context.params;
+  const { id } = params
+
   const task = await req.json();
 
-  const idx = tasks.findIndex((task) => task.id === id);
-  tasks[idx] = task;
+  const sorted = db.tasks.sort((a, b) => a.order - b.order);
+  sorted.splice(task.order, 0, task);
+  db.tasks = sorted.map((task, idx) => {
+    task.order = idx;
+    return task;
+  });
 
-  return NextResponse.json(tasks);
+  return NextResponse.json(db.tasks);
 }
 
 export async function DELETE(
@@ -27,8 +38,8 @@ export async function DELETE(
 ) {
   const id = context.params.id;
 
-  const idx = tasks.findIndex((task) => task.id === id);
-  tasks.splice(idx, 1);
+  const idx = db.tasks.findIndex((task) => task.id === id);
+  db.tasks.splice(idx, 1);
 
-  return NextResponse.json(tasks);
+  return NextResponse.json(db.tasks);
 }

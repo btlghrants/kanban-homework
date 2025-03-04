@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import { BoardContext } from "@/components/BoardContext";
 import Select from '@/components/rhfmui/Select';
 import { Task } from '@/app/api/db';
+import { addTask } from '@/app/serverActions';
 
 export const zodSchema = z.object({
   id: z.string()
@@ -76,11 +77,14 @@ export default function CardCreate({
   const stage = stages.find(stage => stage.id === cardCreateStageId);
   if (!stage) { return ; }
 
-  const onSubmit = (formInputs: Schema) => {
+  const onSubmit = async (formInputs: Schema) => {
     const newTask = formInputs as Task;
     let newTasks = [...tasks];
     newTasks.splice(newTask.order, 0, newTask as Task);
     newTasks = newTasks.sort((a, b) => a.order - b.order);
+
+    await addTask(newTask);
+
     setBoardState(prev => ({...prev, tasks: newTasks}));
     close();
   };

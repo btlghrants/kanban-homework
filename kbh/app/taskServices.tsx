@@ -5,7 +5,15 @@ import { Task } from '@/app/api/db';
 const endpoint = () => `${process.env.API_HOST}/api/tasks`;
 
 export async function create(task: Task): Promise<Task> {
-  throw "TODO - persist given & return persisted!";
+  const resp = await fetch(`${endpoint()}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(task)
+  });
+
+  return readOne(task.id);
 }
 
 export async function readOne(id: Task["id"]): Promise<Task> {

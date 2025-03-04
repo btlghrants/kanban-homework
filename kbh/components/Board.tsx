@@ -140,6 +140,7 @@ export default function Board() {
               title={stage.title}
               description={stage.description}
               tasks={tasks.filter(f => f.stageId === stage.id).sort((a, b) => a.order - b.order)}
+              stages={stages}
               rehomeTask={rehomeTask}
               openCardCreate={openCardCreate}
             />
