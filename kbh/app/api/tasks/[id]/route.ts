@@ -2,6 +2,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { tasks } from '@/app/api/db';
 
+export async function GET(
+  context: { params: {id: string} },
+) {
+  const task = tasks.find(t => t.id === context.params.id);
+  return NextResponse.json(task);
+}
+
 export async function PUT(
   req: NextRequest,
   context: { params: {id: string} },
