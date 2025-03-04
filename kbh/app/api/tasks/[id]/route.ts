@@ -24,6 +24,8 @@ export async function PUT(
   const task = await req.json();
 
   const sorted = db.tasks.sort((a, b) => a.order - b.order);
+  const removeIdx = sorted.findIndex(task => task.id === id);
+  sorted.splice(removeIdx, 1);
   sorted.splice(task.order, 0, task);
   db.tasks = sorted.map((task, idx) => {
     task.order = idx;

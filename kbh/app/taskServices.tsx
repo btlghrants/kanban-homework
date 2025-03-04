@@ -27,7 +27,15 @@ export async function readAll(): Promise<Task[]> {
 }
 
 export async function update(task: Task): Promise<Task> {
-  throw "TODO - persist given & return persisted!";
+  const resp = await fetch(`${endpoint()}/${task.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(task)
+  });
+
+  return readOne(task.id);
 }
 
 export async function destroy(id: Task["id"]): Promise<void> {

@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import { BoardContext } from "@/components/BoardContext";
 import { Task } from '@/app/api/db';
 import { zodSchema, Schema, defaultValues } from '@/components/CardCreate';
+import { updateTask } from '@/app/serverActions';
 
 interface CardUpdateProps {
   open: boolean;
@@ -39,11 +40,14 @@ export default function CardUpdate({
   const task = tasks.find(task => task.id === cardUpdateTaskId);
   useEffect(() => { reset(task || defaultValues); }, [reset, task]);
 
-  const onSubmit = (formInputs: Schema) => {
+  const onSubmit = async (formInputs: Schema) => {
     const newTask = formInputs as Task;
     const newTasks = [...tasks];
     const taskIdx = newTasks.findIndex(task => task.id === newTask.id);
     newTasks[taskIdx] = newTask;
+
+    await updateTask(newTask);
+
     setBoardState(prev => ({...prev, tasks: newTasks}));
     close();
   };
