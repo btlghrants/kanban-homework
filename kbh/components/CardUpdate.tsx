@@ -61,7 +61,7 @@ export default function CardUpdate({
       <DialogContent>
         <FormProvider {...formMethods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h1 className={`text-3xl pb-5`}>Edit Card</h1>
+            <h1 className={`text-3xl pb-5`}>Edit Task</h1>
             <div className={`flex flex-col gap-y-3`}>
               <TextField {...register('id')} label="Id" disabled />
               <TextField {...register('title')}

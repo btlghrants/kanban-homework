@@ -75,7 +75,6 @@ export default function CardCreate({
 
   const stage = stages.find(stage => stage.id === cardCreateStageId);
   if (!stage) { return ; }
-  const { title, description } = stage;
 
   const onSubmit = (formInputs: Schema) => {
     const newTask = formInputs as Task;
@@ -99,8 +98,7 @@ export default function CardCreate({
       <DialogContent>
         <FormProvider {...formMethods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h1 className={`text-3xl pb-1`}>{title}</h1>
-            <h2 className={`text-xl pb-5`}>{description}</h2>
+            <h1 className={`text-3xl pb-5`}>Create Task</h1>
             <div className={`flex flex-col gap-y-3`}>
               <TextField {...register('id')} label="Id" disabled />
               <TextField {...register('title')}
