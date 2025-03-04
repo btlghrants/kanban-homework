@@ -13,7 +13,7 @@ import { BoardContext } from "@/components/BoardContext";
 import Select from '@/components/rhfmui/Select';
 import { Task } from '@/app/api/db';
 
-const schema = z.object({
+export const zodSchema = z.object({
   id: z.string()
     .uuid(),
   owner: z.string()
@@ -30,8 +30,8 @@ const schema = z.object({
   order: z.number()
     .min(0),
 });
-type Schema = z.infer<typeof schema>;
-const defaultValues : Schema = {
+export type Schema = z.infer<typeof zodSchema>;
+export const defaultValues : Schema = {
   id: "",
   owner: "",
   title: "",
@@ -57,7 +57,7 @@ export default function CardCreate({
 
   const formMethods = useForm<Schema>({
     mode: 'all',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(zodSchema),
     defaultValues,
   });
   const {

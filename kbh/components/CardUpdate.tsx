@@ -10,33 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import { BoardContext } from "@/components/BoardContext";
 import { Task } from '@/app/api/db';
-
-const schema = z.object({
-  id: z.string()
-    .uuid(),
-  owner: z.string()
-    .min(1)
-    .max(50),
-  title: z.string()
-    .min(1)
-    .max(50),
-  content: z.string()
-    .min(1)
-    .max(500),
-  stageId: z.string()
-    .uuid(),
-  order: z.number()
-    .min(0),
-});
-type Schema = z.infer<typeof schema>;
-const defaultValues : Schema = {
-  id: "",
-  owner: "",
-  title: "",
-  content: "",
-  stageId: "",
-  order: 0,
-}
+import { zodSchema, Schema, defaultValues } from '@/components/CardCreate';
 
 interface CardUpdateProps {
   open: boolean;
@@ -52,7 +26,7 @@ export default function CardUpdate({
 
   const formMethods = useForm<Schema>({
     mode: 'all',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(zodSchema),
     defaultValues,
   });
   const {
