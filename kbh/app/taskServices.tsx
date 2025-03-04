@@ -2,7 +2,7 @@
 
 import { Task } from '@/app/api/db';
 
-const endpoint = () => `${process.env.API_HOST}/api/tasks`;
+const endpoint = () => `${process.env.API_HOST}:${process.env.API_PORT}/api/tasks`;
 
 export async function create(task: Task): Promise<Task> {
   const resp = await fetch(`${endpoint()}`, {

@@ -2,7 +2,7 @@
 
 import { Stage } from '@/app/api/db';
 
-const endpoint = () => `${process.env.API_HOST}/api/stages`;
+const endpoint = () => `${process.env.API_HOST}:${process.env.API_PORT}/api/stages`;
 
 // export async function create(stage: Stage): Promise<Stage> {}
 
