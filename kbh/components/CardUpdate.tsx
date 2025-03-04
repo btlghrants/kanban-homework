@@ -2,7 +2,6 @@ import React, {useContext, useEffect} from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { v4 as uuidv4 } from 'uuid';
 import Close from '@mui/icons-material/Close';
 import Done from '@mui/icons-material/Done';
 import IconButton from '@mui/material/IconButton';
@@ -10,7 +9,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import { BoardContext } from "@/components/BoardContext";
-import Select from '@/components/rhfmui/Select';
 import { Task } from '@/app/api/db';
 
 const schema = z.object({
@@ -39,21 +37,18 @@ const defaultValues : Schema = {
   stageId: "",
   order: 0,
 }
-type InputSchema = Schema & {
-  stage: ""
-}
 
-interface CardCreateProps {
+interface CardUpdateProps {
   open: boolean;
   close: () => void;
 }
 
-export default function CardCreate({
+export default function CardUpdate({
   open,
   close,
-}: Readonly<CardCreateProps>) {
+}: Readonly<CardUpdateProps>) {
   const { boardState, setBoardState } = useContext(BoardContext);
-  const { tasks, stages, cardCreateStageId } = boardState;
+  const { tasks, cardUpdateTaskId } = boardState;
 
   const formMethods = useForm<Schema>({
     mode: 'all',
@@ -65,23 +60,16 @@ export default function CardCreate({
     handleSubmit,
     register,
     reset,
-    setValue,
   } = formMethods;
 
-  useEffect(() => {
-    reset();
-    if (open === true) { setValue("id", uuidv4()) };
-  }, [open, reset, setValue]);
-
-  const stage = stages.find(stage => stage.id === cardCreateStageId);
-  if (!stage) { return ; }
-  const { title, description } = stage;
+  const task = tasks.find(task => task.id === cardUpdateTaskId);
+  useEffect(() => { reset(task || defaultValues); }, [reset, task]);
 
   const onSubmit = (formInputs: Schema) => {
     const newTask = formInputs as Task;
-    let newTasks = [...tasks];
-    newTasks.splice(newTask.order, 0, newTask as Task);
-    newTasks = newTasks.sort((a, b) => a.order - b.order);
+    const newTasks = [...tasks];
+    const taskIdx = newTasks.findIndex(task => task.id === newTask.id);
+    newTasks[taskIdx] = newTask;
     setBoardState(prev => ({...prev, tasks: newTasks}));
     close();
   };
@@ -99,8 +87,7 @@ export default function CardCreate({
       <DialogContent>
         <FormProvider {...formMethods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h1 className={`text-3xl pb-1`}>{title}</h1>
-            <h2 className={`text-xl pb-5`}>{description}</h2>
+            <h1 className={`text-3xl pb-5`}>Edit Card</h1>
             <div className={`flex flex-col gap-y-3`}>
               <TextField {...register('id')} label="Id" disabled />
               <TextField {...register('title')}
@@ -118,15 +105,8 @@ export default function CardCreate({
                 error={!!errors.owner}
                 helperText={errors.owner?.message}
               />
-              <Select<InputSchema>
-                name="stageId"
-                label="Stage"
-                items={ stages.map(stage => ({value: stage.id, text: stage.title}) ) }
-                defaultValue={stage.id}
-              />
             </div>
-
-            <div className={`flex flex-row justify-between w-full pt-5`}>
+          <div className={`flex flex-row justify-between w-full pt-5`}>
               <IconButton
                 className={`bg-red-400 rounded-lg shadow-sm`}
                 onClick={close}

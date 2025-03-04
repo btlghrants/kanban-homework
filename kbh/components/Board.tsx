@@ -16,10 +16,16 @@ import { BoardContext } from "@/components/BoardContext";
 import { Task } from "@/app/api/db";
 import Column from "@/components/Column";
 import CardCreate from "@/components/CardCreate";
+import CardUpdate from '@/components/CardUpdate';
 
 export default function Board() {
   const { boardState, setBoardState } = useContext(BoardContext);
-  const { stages, tasks, isCardCreateOpen} = boardState;
+  const {
+    stages,
+    tasks,
+    isCardCreateOpen,
+    isCardUpdateOpen,
+  } = boardState;
 
   const rehomeTask = (task: Task, direction: "left" | "right") => {
     const fromStageIdx = stages.findIndex(stage => stage.id === task.stageId);
@@ -112,6 +118,10 @@ export default function Board() {
     setBoardState(prev => ({ ...prev, isCardCreateOpen: false }));
   };
 
+  const closeCardUpdate = () => {
+    setBoardState(prev => ({...prev, isCardUpdateOpen: false }));
+  };
+
   return (
     <div className={`bg-red-300 h-dvh flex flex-row p-5 gap-5 overflow-auto pretty-scroll-h`}>
       <DndContext
@@ -140,6 +150,11 @@ export default function Board() {
       <CardCreate
         open={isCardCreateOpen}
         close={closeCardCreate}
+      />
+
+      <CardUpdate
+        open={isCardUpdateOpen}
+        close={closeCardUpdate}
       />
     </div>
   );

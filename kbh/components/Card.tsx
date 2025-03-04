@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
@@ -8,6 +8,7 @@ import { clsx } from 'clsx';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '@/app/api/db';
+import { BoardContext } from '@/components/BoardContext';
 
 interface CardProps {
   task: Task;
@@ -24,6 +25,8 @@ export default function Card({
   rightable,
   rehomeTask,
 }: Readonly<CardProps>) {
+  const { setBoardState } = useContext(BoardContext);
+
   const {id, owner, title, content} = task;
   const {
     attributes,
@@ -34,11 +37,17 @@ export default function Card({
     isDragging,
   } = useSortable({id, data: { type: "card" }});
 
-  const editHandler = () => { console.log("edit card!") }
-
   const leftHandler = () => leftable && rehomeTask(task, "left");
 
   const rightHandler = () => rightable && rehomeTask(task, "right");
+
+  const openCardUpdate = () => {
+    setBoardState(prev => ({
+      ...prev,
+      isCardUpdateOpen: true,
+      cardUpdateTaskId: task.id,
+    }));
+  }
 
   return (
     <div
@@ -82,7 +91,7 @@ export default function Card({
 
         <IconButton
           className={`bg-blue-400 rounded-lg shadow-sm`}
-          onClick={editHandler}
+          onClick={openCardUpdate}
         >
           <Edit />
         </IconButton>
