@@ -60,12 +60,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-  context: { params: {id: string} },
+  req: NextRequest,
+  context: { params: Promise<{id: string}> },
 ) {
-  const id = context.params.id;
+  const params = await context.params;
+  const { id } = params
 
   const idx = db.tasks.findIndex((task) => task.id === id);
   db.tasks.splice(idx, 1);
 
-  return NextResponse.json(db.tasks);
+  return NextResponse.json("");
 }

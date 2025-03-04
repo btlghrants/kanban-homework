@@ -10,3 +10,7 @@ export async function createTask(task: Task) {
 export async function updateTask(task: Task) {
   return await TaskService.update(task);
 }
+
+export async function deleteTask(task: Task) {
+  return await TaskService.destroy(task.id);
+}

@@ -11,6 +11,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { Task } from '@/app/api/db';
 import { BoardContext } from '@/components/BoardContext';
 import Confirm from '@/components/Confirm';
+import { deleteTask } from '@/app/serverActions';
 
 interface CardProps {
   task: Task;
@@ -60,7 +61,7 @@ export default function Card({
 
   }
 
-  const deleteConfirm = () => {
+  const deleteConfirm = async () => {
     let newTasks = [...boardState.tasks];
     const taskIdx = newTasks.findIndex(t => t.id === task.id);
     newTasks.splice(taskIdx, 1);
@@ -74,6 +75,9 @@ export default function Card({
       const idx = newTasks.findIndex(t => t.id === reo.id);
       newTasks.splice(idx, 1, reo);
     });
+
+    await deleteTask(task);
+
     setBoardState(prev => ({...prev, tasks: newTasks, hasCardDeleteId: null }));
   }
 

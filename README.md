@@ -28,15 +28,15 @@
 
 - ⚠️ Use a mock backend (use whatever is easiest) with the following endpoints to interact with cards:
   - ✅ GET /tasks – Get all tasks.
-  - [ ] POST /tasks – Add a task.
-  - [ ] PUT /tasks/:id – Update a task.
-  - [ ] DELETE /tasks/:id – Delete a task.
+  - ✅ POST /tasks – Add a task.
+  - ✅ PUT /tasks/:id – Update a task.
+  - ✅ DELETE /tasks/:id – Delete a task.
 
     - I'm using Next.js's API Routes to serve these since it's built-in / easy
     - So, to sync client-side, API-derived state with the backend I'm planning to try:
-      - Next.js's server-side data proc'ing, and if that doesn't work (well), and/or
-      - React-Query for client-side API interaction (if the Next.js built-in stuff isn't nice).
-        https://tkdodo.eu/blog/why-you-want-react-query
+      - Next.js's server-side data proc'ing
+        - I'd probably want to add stuff like an ORM + React-Query for client-side API interaction too (if I were building something more).
+          https://tkdodo.eu/blog/why-you-want-react-query
 
 - ⚠️ Bonus Points:
   - [ ] Create container builds for the frontend and backend

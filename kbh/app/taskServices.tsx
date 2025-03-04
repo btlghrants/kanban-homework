@@ -39,5 +39,11 @@ export async function update(task: Task): Promise<Task> {
 }
 
 export async function destroy(id: Task["id"]): Promise<void> {
-  throw "TODO - delete given";
+  const resp = await fetch(`${endpoint()}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  return;
 }
