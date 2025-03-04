@@ -17,6 +17,7 @@ import { Task } from "@/app/api/db";
 import Column from "@/components/Column";
 import CardCreate from "@/components/CardCreate";
 import CardUpdate from '@/components/CardUpdate';
+import { updateTask } from '@/app/serverActions';
 
 export default function Board() {
   const { boardState, setBoardState } = useContext(BoardContext);
@@ -78,7 +79,7 @@ export default function Board() {
 
   const handleDragMove = (/*event: DragEndMove*/) => {}
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
 
     if ( active && over && active.id !== over.id ) {
@@ -102,7 +103,11 @@ export default function Board() {
         const next = reordered.find(t => t.id === task.id);
         return next ? next : task;
       })
+
       setBoardState(prev => ({...prev, tasks: nextTasks}) );
+
+      const task = tasks.find(task => task.id === active.id)!;
+      await updateTask(task);
     }
   }
 
