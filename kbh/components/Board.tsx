@@ -28,7 +28,7 @@ export default function Board() {
     isCardUpdateOpen,
   } = boardState;
 
-  const rehomeTask = (task: Task, direction: "left" | "right") => {
+  const rehomeTask = async (task: Task, direction: "left" | "right") => {
     const fromStageIdx = stages.findIndex(stage => stage.id === task.stageId);
     let toStageIdx = direction === "left" ? fromStageIdx - 1 : fromStageIdx + 1;
     const minIdx = 0;
@@ -63,6 +63,8 @@ export default function Board() {
       return found ? found : t;
     });
     setBoardState(prev => ({ ...prev, tasks: nextTasks }));
+
+    await updateTask(task);
   }
 
   const sensors = useSensors(

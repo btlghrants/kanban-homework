@@ -23,14 +23,38 @@ export async function PUT(
 
   const task = await req.json();
 
-  const sorted = db.tasks.sort((a, b) => a.order - b.order);
-  const removeIdx = sorted.findIndex(task => task.id === id);
-  sorted.splice(removeIdx, 1);
-  sorted.splice(task.order, 0, task);
-  db.tasks = sorted.map((task, idx) => {
-    task.order = idx;
-    return task;
+  const fromStageId = db.tasks.find(t => t.id === id)!.stageId;
+  let fromStage = db.tasks
+    .filter(t => t.stageId === fromStageId)
+    .sort((a, b) => a.order - b.order );
+  let fromIdx = fromStage.findIndex(t => t.id === id)!;
+  fromStage.splice(fromIdx, 1);
+  fromStage = fromStage.map((t, idx) => {
+    t.order = idx;
+    return t;
   });
+
+  const toStageId = task.stageId;
+  let toStage = db.tasks
+    .filter(t => t.stageId === toStageId)
+    .sort((a, b) => a.order - b.order );
+  toStage.splice(task.order, 0, task);
+  toStage = toStage.map((t, idx) => {
+    t.order = idx;
+    return t;
+  });
+
+  let newTasks = db.tasks.map(t => {
+    const foundFrom = fromStage.find(staged => staged.id === t.id);
+    const foundTo = toStage.find(staged => staged.id === t.id);
+    return (
+      foundFrom ? foundFrom :
+      foundTo ? foundTo :
+      t
+    );
+  });
+
+  db.tasks = newTasks;
 
   return NextResponse.json(db.tasks);
 }

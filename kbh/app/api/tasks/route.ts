@@ -7,13 +7,25 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const task = await req.json();
+  const {stageId} = task;
 
-  const sorted = db.tasks.sort((a, b) => a.order - b.order);
-  sorted.splice(task.order, 0, task);
-  db.tasks = sorted.map((task, idx) => {
-    task.order = idx;
-    return task;
+  let toStage = db.tasks
+    .filter(t => t.stageId === stageId)
+    .sort((a, b) => a.order - b.order );
+  toStage.splice(task.order, 0, task);
+
+  toStage = toStage.map((t, idx) => {
+    t.order = idx;
+    return t;
   });
+
+  let newTasks = db.tasks.map(t => {
+    const found = toStage.find(staged => staged.id === t.id);
+    return found ? found : t;
+  });
+  newTasks.push(task);
+
+  db.tasks = newTasks;
 
   return NextResponse.json(db.tasks);
 }
