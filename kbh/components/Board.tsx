@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import {
   closestCorners,
   DndContext,
-  // DragEndEvent,
-  DragMoveEvent,
+  DragEndEvent,
+  // DragMoveEvent,
   DragStartEvent,
   KeyboardSensor,
   PointerSensor,
@@ -76,7 +76,9 @@ export default function Board() {
     setBoardState(prev => ({ ...prev, dndActiveId: active.id }));
   }
 
-  const handleDragMove = (event: DragMoveEvent) => {
+  const handleDragMove = (/*event: DragEndMove*/) => {}
+
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if ( active && over && active.id !== over.id ) {
@@ -103,8 +105,6 @@ export default function Board() {
       setBoardState(prev => ({...prev, tasks: nextTasks}) );
     }
   }
-
-  const handleDragEnd = (/*event: DragEndEvent*/) => {}
 
   const openCardCreate = (stageId: string) => {
     setBoardState(prev => ({
