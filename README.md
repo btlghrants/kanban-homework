@@ -56,14 +56,14 @@
 
 1. From the project root, run:
     ```
-    deployables/up_k3d.sh
+    deployables/k3d_up.sh
     ```
 
-1. See the running app by navigating a browser to: `TBD`
+1. See the running app by navigating a browser to: `http://localhost:8000` (or whatever the `k3d_up.sh` script dropped in the terminal!)
 
 1. Cleanup the k3d cluster with:
     ```
-    deployables/down_k3d.sh
+    deployables/k3d_down.sh
     ```
 
 &nbsp;
@@ -108,13 +108,13 @@
         - I'd probably want to add stuff like an ORM + React-Query for client-side API interaction too (if I were building something more).
           https://tkdodo.eu/blog/why-you-want-react-query
 
-- ⚠️ Bonus Points:
+- ✅ Bonus Points:
   - ✅ Create container builds for the frontend and backend
     - https://nextjs.org/docs/pages/api-reference/config/next-config-js/output#automatically-copying-traced-files
       (have to copy some files to make an "optimized" docker container!)
     - these should both _technically_ be servable from the same Next.js app, just using 
       separate instantiations (i.e. containers / pods)
-  - [ ] Create a deployment for a generic K8s cluster (Kind or Docker Desktop for example)
+  - ✅ Create a deployment for a generic K8s cluster (Kind or Docker Desktop for example)
     - planning to use K3d!
   
 - ✅ Publish code to GitHub

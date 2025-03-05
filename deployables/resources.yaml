@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kanban-homework
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+  namespace: kanban-homework
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: kbh-api
+        image: kbh-api:0.1.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api
+  name: api
+  namespace: kanban-homework
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: api
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ui
+  name: ui
+  namespace: kanban-homework
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+      - name: kbh-ui
+        image: kbh-ui:0.1.0
+        env:
+        - name: API_HOST
+          value: "http://api.kanban-homework.svc.cluster.local"
+        - name: API_PORT
+          value: "80"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ui
+  name: ui
+  namespace: kanban-homework
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: ui
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  namespace: kanban-homework
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ui
+            port:
+              number: 80
