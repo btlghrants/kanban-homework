@@ -96,7 +96,7 @@
   - Using "BoardContext" to propagate API-data (i.e. "tasks") throughout client-side
     component hierarchies _without_ having to resort to prop drilling
 
-- ⚠️ Use a mock backend (use whatever is easiest) with the following endpoints to interact with cards:
+- ✅ Use a mock backend (use whatever is easiest) with the following endpoints to interact with cards:
   - ✅ GET /tasks – Get all tasks.
   - ✅ POST /tasks – Add a task.
   - ✅ PUT /tasks/:id – Update a task.
