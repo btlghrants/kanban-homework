@@ -1,0 +1,9 @@
+FROM docker.io/library/node:22.14.0-alpine
+
+WORKDIR /app
+COPY . /app
+
+ENTRYPOINT [ "node" ]
+CMD [ "server.js" ]
+
+EXPOSE 8080

@@ -1,3 +1,73 @@
+## How to ##
+
+### Workstation expectations ###
+
+- Ubuntu
+- docker (with compose)
+- VS Code, with following extensions:
+  - Dev Containers (ms-vscode-remote.remote-containers)
+  - Tailwind CSS IntelliSense (bradlc.vscode-tailwindcss)
+- jq
+- k3d
+
+
+&nbsp;
+
+### Develop ###
+
+1. Navigate to project root.
+
+1. Run the [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers):
+    - Press F1 to open the Command Palette
+    - Select the option "Dev Containers: (Re-)build and (Re-)open in Container"
+    - Wait while the dev container builds & starts
+    - Watch for the IDE to close the "local" project and (re-)open it inside the new dev container
+
+1. From the conneted IDE's terminal (the one showing a prompt like `kbh@dev:/code$`):
+    ```
+    cd kbh        # to enter the app directory
+    npm ci        # to install NPM dependencies
+    npm run dev   # to run the app in dev mode
+
+    <Ctrl+C>      # to stop the running app
+    ```
+
+1. Navigate a browser to `http://localhost:3000` (or whatever [.env.development](./kbh/.env.development) defines) to see a hot-reloading, dev version of the app!
+
+1. When you're done, stop the [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers):
+    - Press F1 to open the Command Palette
+    - Select the option "Dev Containers: Reopen Folder Locally"
+    - Watch for the IDE to close the in-container project and reopen locally
+
+
+&nbsp;
+
+### Build the app images ###
+
+1. From the project root, run:
+    ```
+    deployables/build.sh
+    ```
+
+
+&nbsp;
+
+### Run the app images (in k3d) ###
+
+1. From the project root, run:
+    ```
+    deployables/up_k3d.sh
+    ```
+
+1. See the running app by navigating a browser to: `TBD`
+
+1. Cleanup the k3d cluster with:
+    ```
+    deployables/down_k3d.sh
+    ```
+
+&nbsp;
+
 ### Criteria ###
 
 - ✅ Create a React app with Tailwind that simulates a very basic Kanban board
@@ -39,7 +109,7 @@
           https://tkdodo.eu/blog/why-you-want-react-query
 
 - ⚠️ Bonus Points:
-  - [ ] Create container builds for the frontend and backend
+  - ✅ Create container builds for the frontend and backend
     - https://nextjs.org/docs/pages/api-reference/config/next-config-js/output#automatically-copying-traced-files
       (have to copy some files to make an "optimized" docker container!)
     - these should both _technically_ be servable from the same Next.js app, just using 
@@ -48,6 +118,7 @@
     - planning to use K3d!
   
 - ✅ Publish code to GitHub
+
 
 &nbsp;
 
