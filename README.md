@@ -44,7 +44,7 @@
 
 ### Build the app images ###
 
-1. From the project root, run:
+1. From the project root (on the workstation, _not_ in the dev container), run:
     ```
     deployables/build.sh
     ```
@@ -54,7 +54,7 @@
 
 ### Run the app images (in k3d) ###
 
-1. From the project root, run:
+1. From the project root (on the workstation, _not_ in the dev container), run:
     ```
     deployables/k3d_up.sh
     ```
